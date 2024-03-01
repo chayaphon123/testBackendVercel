@@ -3,7 +3,9 @@ const {getCoWorks, getCoWork, postCoWorks, putCoWork, deleteCoWork} = require ('
 
 const router = express.Router();
 
-router.route('/').get(getCoWorks).post(postCoWorks);
-router.route('/:id').get(getCoWork).put(putCoWork).delete(deleteCoWork);
+const {protect,authorize} = require('../middleware/auth');
+
+router.route('/').get(getCoWorks).post(protect,authorize('admin'),postCoWorks);
+router.route('/:id').get(getCoWork).put(protect,authorize('admin'),putCoWork).delete(protect,authorize('admin'),deleteCoWork);
 
 module.exports=router;
