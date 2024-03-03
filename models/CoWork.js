@@ -28,6 +28,25 @@ openclosetime:{
     ]
 },
 
+},
+{
+    toJSON: {virtuals:true},
+    toObject: {virtuals:true}
+});
+
+//Reverse populate with virtuals
+CoWorkSchema.virtual('reservations', {
+    ref: 'Reservation',
+    localField: '_id',
+    foreignField: 'cowork',
+    justOne: false
+});
+
+//Cascade delete reservations when a co-work room is deleted
+CoWorkSchema.pre('deleteOne', {document:true, query: false}, async function(next){
+    console.log(`Reservations being removed from co-work room ${this._id}`);
+    await this.model('Reservation').deleteMany({cowork:this._id});
+    next();
 });
 
 module.exports = mongoose.model('CoWork', CoWorkSchema);
