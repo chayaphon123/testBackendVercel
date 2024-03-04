@@ -1,0 +1,98 @@
+@startuml
+
+frame {
+left to right direction
+
+class "<<Application>>\nService" as MainService 
+
+package "Auth" {
+    class "<<Resource>>\nUsers" as ResourceUsers {
+        <<POST>> +register(): User
+        <<POST>> +login(): User
+        <<GET>> +getMe(): User
+        <<GET>> +logout(): void
+    }
+
+    class "<<Middleware>>\nAuthMiddleware" as AuthMiddleware {
+        +protect(): void
+        +authorize(): void
+    }
+
+    class "<<Model>>\nUser" as User {
+        -name
+        -tel_number
+        -email
+        -password
+        -role
+        +getSignedJwtToken(): String
+        +matchPassword(password: String): Boolean
+    }
+
+    MainService --> ResourceUsers: "/users\n<<Path>>"
+    ResourceUsers --> User: "<<use>>"
+    ResourceUsers --> AuthMiddleware: "<<use>>"
+}
+
+
+package "CoWork"{
+    class "<<Resource>>\nCoWorks" as ResourceCoWorks{
+        <<GET>> +getCoWorks(): CoWork
+        <<POST>> +postCoWorks(): CoWork
+    }
+
+    class "<<Resource>>\nCoWork" as ResourceCoWork {
+        <<GET>> +getCoWork(): CoWork 
+        <<PUT>> +updateCoWork(): CoWork
+        <<DELETE>> +deleteCoWork(): void
+    }
+
+    class "<<Representation>>" as RepresentationCoWork {
+        -name
+        -address
+        -phonenumber
+        -openclosetime
+    }
+
+    MainService --> ResourceCoWorks:"/coworks\n<<Path>>"
+    ResourceCoWorks --> ResourceCoWork: "/{coWorkId}\n<<Path>>"
+    ResourceCoWork --> RepresentationCoWork: "<<use>>"
+}
+
+package "Reservations" {
+    class "<<Resource>>\nReservations" as ResourceReservations{
+        <<GET>> +getReservations(): Reservation
+        <<POST>> +addReservation(): Reservation
+    }
+
+    class "<<Resource>>\nReservation" as ResourceReservation {
+        <<GET>> +getReservation(): Reservation
+        <<PUT>> +updateReservation(): Reservation
+        <<DELETE>> +deleteReservation(): void
+    }
+
+    class "<<Model>>\nReservation" as Reservation {
+        -resvDate
+        -user
+        -cowork
+        -createdAt
+    }
+
+    class "<<Model>>\nCoWork" as CoWork {
+        -name
+        -address
+        -phonenumber
+        -openclosetime
+    }
+
+    MainService --> ResourceReservations: "/reservations\n<<Path>>"
+    ResourceReservations --> ResourceReservation: "/{reservationId}\n<<Path>>"
+    ResourceReservation --> Reservation: "<<use>>"
+    ResourceReservation --> CoWork: "<<use>>"
+}
+
+MainService ..> CoWork
+MainService ..> Reservations
+}
+
+@enduml
+
