@@ -1,0 +1,26 @@
+@startuml Co-working Space Reservation Use Case Diagram
+left to right direction
+actor "User" as user
+rectangle "Co-working Space Reservation System" as coworkSystem{
+    usecase "Register" as register
+    usecase "Login" as login
+    usecase "Logout" as logout
+    usecase "View\nCo-working\nSpaces" as viewCoworks
+    usecase "Manage\nReservation" as manageResv
+    usecase "Manage\nCo-working\nSpaces" as manageCowork
+}
+
+user -- register
+user -- login
+user -- logout
+user -- viewCoworks
+user -- manageResv
+
+actor "Admin" as admin
+register -- admin
+login -- admin
+logout -- admin
+manageCowork -- admin
+manageResv -- admin
+
+@enduml
