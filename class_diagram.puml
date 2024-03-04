@@ -28,7 +28,7 @@ package "Auth" {
         +matchPassword(password: String): Boolean
     }
 
-    MainService --> ResourceUsers: "/users\n<<Path>>"
+    MainService --> ResourceUsers: "/auth\n<<Path>>"
     ResourceUsers --> User: "<<use>>"
     ResourceUsers --> AuthMiddleware: "<<use>>"
 }
