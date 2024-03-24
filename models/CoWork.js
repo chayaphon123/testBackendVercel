@@ -19,13 +19,32 @@ phonenumber: {
     required: [true, 'Please add the telephone number']
 },
 
-openclosetime:{
+opentime:{
     type: String,
-    required: [true, 'Please add the open-closing time'],
+    required: [true, 'Please add the open time'],
     match: [
-        /^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
+        /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
         'Please add a valid time'
     ]
+},
+
+closetime:{
+    type: String,
+    required: [true, 'Please add the close time'],
+    match: [
+        /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
+        'Please add a valid time'
+    ]
+},
+
+price: {
+    type: Number,
+    required: [true, 'Please add the price']
+},
+
+picture:{
+    type: String,
+    required: [true, 'Please add a picture']
 },
 
 },

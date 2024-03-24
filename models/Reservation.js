@@ -15,6 +15,14 @@ const ReservationSchema=new mongoose.Schema({
         ref: 'CoWork',
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
+    picture:{
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

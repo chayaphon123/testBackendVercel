@@ -8,7 +8,9 @@
 *         - name
 *         - address
 *         - phonenumber
-*         - openclosetime
+*         - opentime
+*         - closetime
+*         - price
 *         - picture
 *       properties:
 *         name:
@@ -20,9 +22,15 @@
 *         phonenumber:
 *           type: string
 *           description: Phone number of co-working space
-*         openclosetime:
+*         opentime:
 *           type: string
-*           description: Open-Close time of co-working space
+*           description: Open time of co-working space
+*         closetime:
+*           type: string
+*           description: Close time of co-working space
+*         price:
+*           type: number
+*           description: Price of co-working space
 *         picture:
 *           type: string
 *           description: Picture of the co-working space
