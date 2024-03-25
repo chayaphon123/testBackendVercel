@@ -27,10 +27,6 @@ const ReservationSchema=new mongoose.Schema({
         type: Number,
         required: true
     },
-    picture:{
-        type: String,
-        required: true
-    },
     createdAt: {
         type: Date,
         default: Date.now
